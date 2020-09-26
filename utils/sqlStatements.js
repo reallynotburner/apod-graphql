@@ -30,6 +30,10 @@ const getRecordByIsoDate = function (isoDate) {
   return `${formattedSelectStar} WHERE date = '${isoDate}';`;
 }
 
+const getRecordsByDateRange = function (beginDate, endDate) {
+  return `${formattedSelectStar} WHERE date BETWEEN '${beginDate}' AND '${endDate}';`;
+}
+
 const insertNewApodRecord = function (con, record) {
   try {
     const sql = `INSERT INTO ${mySqlTableName} (date, title, media_type, url, hdurl, explanation, copyright) ` +
@@ -67,6 +71,7 @@ module.exports = {
   getLatestRecord,
   getRecordById,
   getRecordByIsoDate,
+  getRecordsByDateRange,
   insertNewApodRecord,
   noop,
   recentImageWithoutThumbnails,

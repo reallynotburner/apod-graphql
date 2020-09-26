@@ -4,6 +4,7 @@ const _ = require('lodash');
 
 const sqlStatements = require('../utils/sqlStatements');
 const sqlGetOne = require('../utils/sqlGetOne');
+const sqlGetMultiple = require('../utils/sqlGetMultiple');
 
 class ApodHistoryApi extends DataSource {
   constructor() {
@@ -21,6 +22,11 @@ class ApodHistoryApi extends DataSource {
 
   async getRecordByIsoDate(isoDate) {
     const result = await sqlGetOne(sqlStatements.getRecordByIsoDate(isoDate));
+    return result;
+  }
+
+  async getRecordsByDateRange(beginDate, endDate) {
+    const result = await sqlGetMultiple(sqlStatements.getRecordsByDateRange(beginDate, endDate));
     return result;
   }
 

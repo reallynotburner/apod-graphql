@@ -6,6 +6,6 @@ module.exports = {
     return dataSources.apodHistoryAPI.getRecordByIsoDate(date);
   },
   getRecordsByDateRange: (parent, {beginDate, endDate}, { dataSources }, info) => {
-    return dataSources.apodHistoryAPI.getRecordByIsoDate(beginDate, endDate);
+    return dataSources.apodHistoryAPI.getRecordsByDateRange(beginDate, endDate);
   },
 };

@@ -3,7 +3,8 @@ const { gql } = require("apollo-server");
 module.exports= gql`
   type Query {
     getRecordById(id: ID): ApodRow,
-    getRecordByDate(date: String): ApodRow,
+    getRecordByIsoDate(date: String): ApodRow,
+    getRecordsByDateRange(beginDate: String, endDate: String): [ApodRow],
   }
   type ApodRow {
     id: ID!

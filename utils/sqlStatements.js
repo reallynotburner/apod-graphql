@@ -21,12 +21,12 @@ const useDatabase = `USE ${mySqlDatabaseName}`
 const getLatestRecord = `SELECT DATE_FORMAT(date,\'%Y-%m-%d\') date from ${mySqlTableName} ORDER by id DESC LIMIT 1`;
 const noop = `SELECT * from ${mySqlTableName} WHERE false`;
 // the date object needs formatting to be ISO, otherwise it gets converted to epoch.
-const formattedSelectStar = `SELECT DATE_FORMAT(date,\'%Y-%m-%d\') date, title, media_type, url, ` +
+const formattedSelectStar = `SELECT id, DATE_FORMAT(date,\'%Y-%m-%d\') date, title, media_type, url, ` +
   `hdurl, thumbnailUrl, explanation, copyright from ${mySqlTableName}`
 const getRecordById = function (id) {
   return `${formattedSelectStar} WHERE id = ${id}`;
 }
-const getRecordByDate = function (isoDate) {
+const getRecordByIsoDate = function (isoDate) {
   return `${formattedSelectStar} WHERE date = '${isoDate}';`;
 }
 
@@ -66,7 +66,7 @@ module.exports = {
   createDatabase,
   getLatestRecord,
   getRecordById,
-  getRecordByDate,
+  getRecordByIsoDate,
   insertNewApodRecord,
   noop,
   recentImageWithoutThumbnails,

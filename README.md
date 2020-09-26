@@ -10,6 +10,9 @@ Since 1995 [Astronomy Picture of the Day](https://apod.nasa.gov/apod/astropix.ht
 ```
   type Query {
     getRecordById(id: ID): ApodRow,
+    getRecordByIsoDate(date: String): ApodRow,
+    getRecordsByDateRange(beginDate: String, endDate: String): [ApodRow],
+    searchRecords(term: String, number: Int, offset: Int): [ApodRow],
   }
   type ApodRow {
     id: ID!

@@ -22,3 +22,15 @@ Since 1995 [Astronomy Picture of the Day](https://apod.nasa.gov/apod/astropix.ht
     copyright: String
   }
 ```
+
+## .env
+You'll need your own values to connect to your MySql Instance, but here's an example .env file:
+```
+NASA_API_KEY=DEMO_KEY
+NASA_API_ACCOUNT_ID=1a2b3cd-1a2b-1a2b-1a2b-1a2b3cd1a2b3cd
+MYSQL_ENDPOINT=localhost
+MYSQL_DATABASE=MyApodDatabase
+MYSQL_USER=root
+MYSQL_PASSWORD=password
+MYSQL_TABLE=ApiRecords
+```

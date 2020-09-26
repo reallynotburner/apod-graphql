@@ -34,6 +34,10 @@ const getRecordsByDateRange = function (beginDate, endDate) {
   return `${formattedSelectStar} WHERE date BETWEEN '${beginDate}' AND '${endDate}';`;
 }
 
+const searchRecords = function (term, number = 10, offset = 0) {
+  return `${formattedSelectStar} WHERE title LIKE '%${term}%' OR explanation LIKE '%${term}%' LIMIT ${offset}, ${number};`;
+}
+
 const insertNewApodRecord = function (con, record) {
   try {
     const sql = `INSERT INTO ${mySqlTableName} (date, title, media_type, url, hdurl, explanation, copyright) ` +
@@ -75,6 +79,7 @@ module.exports = {
   insertNewApodRecord,
   noop,
   recentImageWithoutThumbnails,
+  searchRecords,
   updateThumbnail,
   useDatabase,
 };

@@ -30,6 +30,11 @@ class ApodHistoryApi extends DataSource {
     return result;
   }
 
+  async searchRecords(term, number, offset) {
+    const result = await sqlGetMultiple(sqlStatements.searchRecords(term, number, offset));
+    return result;
+  }
+
   // query
   // direct passing of args means if you can query for 
   // any of the schema properties on a session!

@@ -30,6 +30,12 @@ class ApodHistoryApi extends DataSource {
     return result;
   }
 
+  async getRecordsByYearMonth(year, month, descending) {
+    const result = await sqlGetMultiple(sqlStatements.getRecordsByYearMonth(year, month, descending));
+    return result;
+  }
+
+  
   async searchRecords(term, number, offset) {
     const result = await sqlGetMultiple(sqlStatements.searchRecords(term, number, offset));
     return result;

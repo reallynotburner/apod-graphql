@@ -34,6 +34,13 @@ const getRecordsByDateRange = function (beginDate, endDate) {
   return `${formattedSelectStar} WHERE date BETWEEN '${beginDate}' AND '${endDate}';`;
 }
 
+const getRecordsByYearMonth = function (year, month, descending = false) {
+  month = month < 10 ? `0${month}` : month;
+  const result = `${formattedSelectStar} WHERE date LIKE '${year}-${month}%' ` +
+    `ORDER BY date${descending ? ' DESC' : ''};`;
+  return result;
+}
+
 const searchRecords = function (term, number = 10, offset = 0) {
   return `${formattedSelectStar} WHERE title LIKE '%${term}%' OR explanation LIKE '%${term}%' LIMIT ${offset}, ${number};`;
 }
@@ -76,6 +83,7 @@ module.exports = {
   getRecordById,
   getRecordByIsoDate,
   getRecordsByDateRange,
+  getRecordsByYearMonth,
   insertNewApodRecord,
   noop,
   recentImageWithoutThumbnails,

@@ -48,7 +48,7 @@ class ApodHistoryApi extends DataSource {
           cursorMonth = cursorDate.getMonth();
           cursorYear = cursorDate.getFullYear();
   
-          const result = await sqlGetMultiple(sqlStatements.getRecordsByYearMonth(cursorYear, cursorMonth, true));
+          const result = await sqlGetMultiple(sqlStatements.getRecordsByYearMonth(cursorYear, cursorMonth));
           limit--;
           cursorDate.setMonth(cursorDate.getMonth() - 1);
     

@@ -36,6 +36,7 @@ const getRecordsByDateRange = function (beginDate, endDate, descending = false) 
 }
 
 const getRecordsByYearMonth = function (year, month, descending = false) {
+  month++;
   month = month < 10 ? `0${month}` : month;
   const result = `${formattedSelectStar} WHERE date LIKE '${year}-${month}%' ` +
     `ORDER BY date${descending ? ' DESC' : ''};`;

@@ -14,6 +14,9 @@ module.exports = {
   getRecordsByYearMonth: (parent, {year, month, descending}, { dataSources }, info) => {
     return dataSources.apodHistoryAPI.getRecordsByYearMonth(year, month, descending);
   },
+  getRecordsPaginatedByMonth: (parent, {year, month, limit}, { dataSources }, info) => {
+    return dataSources.apodHistoryAPI.getRecordsPaginatedByMonth(year, month, limit);
+  },
   searchRecords: (parent, {term, number, offset}, { dataSources }, info) => {
     return dataSources.apodHistoryAPI.searchRecords(term, number, offset);
   },

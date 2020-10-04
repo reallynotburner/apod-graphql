@@ -35,12 +35,50 @@ class ApodHistoryApi extends DataSource {
     return result;
   }
 
+  async getRecordsPaginatedByMonth(year, month, limit = 1) {
+    try {
+      const collection = [];
+      const cursorDate = new Date(`${year}-${month + 1}-05`); // 05 removes UTC complexities
+  
+      let cursorMonth;
+      let cursorYear;
+
+      while (limit > 0) {
+        cursorMonth = cursorDate.getMonth();
+        cursorYear = cursorDate.getFullYear();
+
+        const result = await sqlGetMultiple(sqlStatements.getRecordsByYearMonth(cursorYear, cursorMonth, true));
+        limit--;
+        cursorDate.setMonth(cursorDate.getMonth() - 1);
+  
+        if (result) {
+          const collectionObject = {
+            year: cursorYear,
+            month: cursorMonth,
+            days: result
+          }
+          collection.push(collectionObject);
+        }
+
+      }
+  
+      return collection;
+    } catch (e) {
+      return [];
+    }
+    
+  }
+
   async getRecordsByYear(year, descending) {
     const result = await sqlGetMultiple(sqlStatements.getRecordsByYear(year, descending));
     return result;
   }
 
-  
+  async searchRecords(term, number, offset) {
+    const result = await sqlGetMultiple(sqlStatements.searchRecords(term, number, offset));
+    return result;
+  }
+
   async searchRecords(term, number, offset) {
     const result = await sqlGetMultiple(sqlStatements.searchRecords(term, number, offset));
     return result;

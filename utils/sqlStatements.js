@@ -30,13 +30,20 @@ const getRecordByIsoDate = function (isoDate) {
   return `${formattedSelectStar} WHERE date = '${isoDate}';`;
 }
 
-const getRecordsByDateRange = function (beginDate, endDate) {
-  return `${formattedSelectStar} WHERE date BETWEEN '${beginDate}' AND '${endDate}';`;
+const getRecordsByDateRange = function (beginDate, endDate, descending = false) {
+  return `${formattedSelectStar} WHERE date BETWEEN '${beginDate}' AND '${endDate}' ` + 
+    `ORDER BY date${descending ? ' DESC' : ''};`;
 }
 
 const getRecordsByYearMonth = function (year, month, descending = false) {
   month = month < 10 ? `0${month}` : month;
   const result = `${formattedSelectStar} WHERE date LIKE '${year}-${month}%' ` +
+    `ORDER BY date${descending ? ' DESC' : ''};`;
+  return result;
+}
+
+const getRecordsByYear = function (year, descending = false) {
+  const result = `${formattedSelectStar} WHERE date LIKE '${year}-%' ` +
     `ORDER BY date${descending ? ' DESC' : ''};`;
   return result;
 }
@@ -83,6 +90,7 @@ module.exports = {
   getRecordById,
   getRecordByIsoDate,
   getRecordsByDateRange,
+  getRecordsByYear,
   getRecordsByYearMonth,
   insertNewApodRecord,
   noop,

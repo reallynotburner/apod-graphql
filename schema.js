@@ -4,8 +4,9 @@ module.exports= gql`
   type Query {
     getRecordById(id: ID): ApodRow,
     getRecordByIsoDate(date: String): ApodRow,
-    getRecordsByDateRange(beginDate: String, endDate: String): [ApodRow],
+    getRecordsByDateRange(beginDate: String, endDate: String, descending: Boolean): [ApodRow],
     getRecordsByYearMonth(year: Int, month: Int, descending: Boolean): [ApodRow],
+    getRecordsByYear(year: Int, descending: Boolean): [ApodRow],
     searchRecords(term: String, number: Int, offset: Int): [ApodRow],
   }
   type ApodRow {

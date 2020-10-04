@@ -25,13 +25,18 @@ class ApodHistoryApi extends DataSource {
     return result;
   }
 
-  async getRecordsByDateRange(beginDate, endDate) {
-    const result = await sqlGetMultiple(sqlStatements.getRecordsByDateRange(beginDate, endDate));
+  async getRecordsByDateRange(beginDate, endDate, descending) {
+    const result = await sqlGetMultiple(sqlStatements.getRecordsByDateRange(beginDate, endDate, descending));
     return result;
   }
 
   async getRecordsByYearMonth(year, month, descending) {
     const result = await sqlGetMultiple(sqlStatements.getRecordsByYearMonth(year, month, descending));
+    return result;
+  }
+
+  async getRecordsByYear(year, descending) {
+    const result = await sqlGetMultiple(sqlStatements.getRecordsByYear(year, descending));
     return result;
   }
 
@@ -44,9 +49,9 @@ class ApodHistoryApi extends DataSource {
   // query
   // direct passing of args means if you can query for 
   // any of the schema properties on a session!
-  getSessions(args) {
-    return _.filter(sessions, args);
-  }
+  // getSessions(args) {
+  //   return _.filter(sessions, args);
+  // }
 }
 
 module.exports = ApodHistoryApi;

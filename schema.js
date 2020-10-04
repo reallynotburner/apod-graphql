@@ -4,8 +4,10 @@ module.exports= gql`
   type Query {
     getRecordById(id: ID): ApodRow,
     getRecordByIsoDate(date: String): ApodRow,
-    getRecordsByDateRange(beginDate: String, endDate: String): [ApodRow],
+    getRecordsByDateRange(beginDate: String, endDate: String, descending: Boolean): [ApodRow],
     getRecordsByYearMonth(year: Int, month: Int, descending: Boolean): [ApodRow],
+    getRecordsByYear(year: Int, descending: Boolean): [ApodRow],
+    getRecordsPaginatedByMonth(year: Int, month: Int, limit: Int): [Month],
     searchRecords(term: String, number: Int, offset: Int): [ApodRow],
   }
   type ApodRow {
@@ -18,6 +20,11 @@ module.exports= gql`
     thumbnailUrl: String
     explanation: String
     copyright: String
+  }
+  type Month {
+    year: Int,
+    month: Int,
+    days: [ApodRow]
   }
   type Error {
     code: String

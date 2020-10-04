@@ -25,8 +25,8 @@ class ApodHistoryApi extends DataSource {
     return result;
   }
 
-  async getRecordsByDateRange(beginDate, endDate) {
-    const result = await sqlGetMultiple(sqlStatements.getRecordsByDateRange(beginDate, endDate));
+  async getRecordsByDateRange(beginDate, endDate, descending) {
+    const result = await sqlGetMultiple(sqlStatements.getRecordsByDateRange(beginDate, endDate, descending));
     return result;
   }
 
@@ -35,7 +35,54 @@ class ApodHistoryApi extends DataSource {
     return result;
   }
 
+  async getRecordsPaginatedByMonth(year, month, limit = 1) {
+    try {
+      const collection = [];
+      const cursorDate = new Date(`${year}-${month + 1}-05`); // 05 removes UTC complexities
   
+      let cursorMonth;
+      let cursorYear;
+
+      while (limit > 0) {
+        try {
+          cursorMonth = cursorDate.getMonth();
+          cursorYear = cursorDate.getFullYear();
+  
+          const result = await sqlGetMultiple(sqlStatements.getRecordsByYearMonth(cursorYear, cursorMonth));
+          limit--;
+          cursorDate.setMonth(cursorDate.getMonth() - 1);
+    
+          if (result) {
+            const collectionObject = {
+              year: cursorYear,
+              month: cursorMonth,
+              days: result
+            }
+            collection.push(collectionObject);
+          }
+        } catch (e) {
+          break;
+        }
+        
+      }
+  
+      return collection;
+    } catch (e) {
+      return [];
+    }
+    
+  }
+
+  async getRecordsByYear(year, descending) {
+    const result = await sqlGetMultiple(sqlStatements.getRecordsByYear(year, descending));
+    return result;
+  }
+
+  async searchRecords(term, number, offset) {
+    const result = await sqlGetMultiple(sqlStatements.searchRecords(term, number, offset));
+    return result;
+  }
+
   async searchRecords(term, number, offset) {
     const result = await sqlGetMultiple(sqlStatements.searchRecords(term, number, offset));
     return result;
@@ -44,9 +91,9 @@ class ApodHistoryApi extends DataSource {
   // query
   // direct passing of args means if you can query for 
   // any of the schema properties on a session!
-  getSessions(args) {
-    return _.filter(sessions, args);
-  }
+  // getSessions(args) {
+  //   return _.filter(sessions, args);
+  // }
 }
 
 module.exports = ApodHistoryApi;

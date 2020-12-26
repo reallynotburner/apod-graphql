@@ -9,6 +9,7 @@ module.exports= gql`
     getRecordsByYear(year: Int, descending: Boolean): [ApodRow],
     getRecordsPaginatedByMonth(year: Int, month: Int, limit: Int): [Month],
     searchRecords(term: String, number: Int, offset: Int): [ApodRow],
+    getRecords(number: Int, offset: Int): [ApodRow],
   }
   type ApodRow {
     id: ID!

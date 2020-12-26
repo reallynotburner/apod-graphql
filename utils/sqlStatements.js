@@ -53,6 +53,10 @@ const searchRecords = function (term, number = 10, offset = 0) {
   return `${formattedSelectStar} WHERE title LIKE '%${term}%' OR explanation LIKE '%${term}%' LIMIT ${offset}, ${number};`;
 }
 
+const getRecords = function (number = 10, offset = 0) {
+  return `${formattedSelectStar} ORDER BY date DESC LIMIT ${number} OFFSET ${offset};`;
+}
+
 const insertNewApodRecord = function (con, record) {
   try {
     const sql = `INSERT INTO ${mySqlTableName} (date, title, media_type, url, hdurl, explanation, copyright) ` +
@@ -88,6 +92,7 @@ module.exports = {
   createTable,
   createDatabase,
   getLatestRecord,
+  getRecords,
   getRecordById,
   getRecordByIsoDate,
   getRecordsByDateRange,

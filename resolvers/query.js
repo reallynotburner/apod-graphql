@@ -20,4 +20,7 @@ module.exports = {
   searchRecords: (parent, {term, number, offset}, { dataSources }, info) => {
     return dataSources.apodHistoryAPI.searchRecords(term, number, offset);
   },
+  getRecords: (parent, {number, offset}, { dataSources }, info) => {
+    return dataSources.apodHistoryAPI.getRecords(number, offset);
+  },
 };
